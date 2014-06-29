@@ -18,15 +18,24 @@ module BARewards
     )
 
     if response.code == 200
-      return BARewards::Result.new(
-        city: response["cityName"],
-        country: response["countryName"],
-        region: response["regionName"],
-        reward_flight_saver: response["prices"]["rfs"],
-        availability_dates: parse_availability_dates(response, number_of_seats),
-        avios_price: response["prices"]["prices"]["A"],
-        raw_response: response
-      )
+      begin
+        return BARewards::Result.new(
+          city: response["cityName"],
+          country: response["countryName"],
+          region: response["regionName"],
+          reward_flight_saver: if response.has_key?("prices")
+            response["prices"]["rfs"]
+          end,
+          availability_dates: parse_availability_dates(response, number_of_seats),
+          avios_price: if response.has_key?("prices")
+            response["prices"]["prices"]["A"]
+          end,
+          raw_response: response
+        )
+      rescue Exception => e
+        raise BARewardsException, "The response couldn't be parsed - please" \
+          " check the details entered."
+      end
     else
       raise BARewardsException, "The server responded with an error."
     end
