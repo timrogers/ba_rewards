@@ -7,12 +7,20 @@ I use the private API from the new [Avios](http://www.avios.com) Flight Finder a
 
 ## Usage
 
-Pretty simple. Simply call `BARewards.availability` with the code of your
+Pretty simple. First, add the gem to your Gemfile:
+
+```
+gem 'ba_rewards', github: 'timrogers/ba_rewards'
+```
+
+Simply call `BARewards.availability` with the code of your
 departure and destinations airports. You can then optionally choose a fare class (I'll assume Economy) and the number of seats you need:
 
 ```ruby
+require 'ba_rewards'
+
 # I'm looking for two seats from any London airport to San Francisco in Business
-result = BARewards.availability("LON", "SFO", :business, :2)
+result = BARewards.availability("LON", "SFO", :business, 2)
 ```
 
 It'll return a `BARewards::Result` object, or raise an error if something goes wrong. You can call the following methods on the result object:
