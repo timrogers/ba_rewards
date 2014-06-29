@@ -27,6 +27,4 @@ It'll return a `BARewards::Result` object, or raise an error if something goes w
 
 ## Colophon
 
-Released by [Tim Rogers](http://timrogers.uk) ([@timrogers](https://twitter.com/timrogers)) under the MIT license. Any questions? Email <barewards@timrogers.co.uk>.
-
-* 
+Released by [Tim Rogers](http://timrogers.uk) ([@timrogers](https://twitter.com/timrogers)) under the MIT license. Any questions? Email <barewards@timrogers.co.uk>. 
