@@ -7,6 +7,7 @@ module BARewards
 
   def self.availability(from, to, klass = :economy, number_of_seats = 1)
     if [:economy, :premium, :business, :first].include?(klass)
+      sc = cabin_class_to_sc_mapping(klass)
       klass = klass.to_s[0].capitalize
     else
       raise BARewardsException, "You must specify a valid fare class."
@@ -14,7 +15,7 @@ module BARewards
 
     response = get(
       "/departure/cities/#{from}/destination/#{to}?obDate=" \
-      "#{Date.today.strftime('%d%m%y')}&cabinClass=#{klass}&sc=X"
+      "#{Date.today.strftime('%d%m%y')}&cabinClass=#{klass}&sc=#{sc}"
     )
 
     if response.code == 200
@@ -47,6 +48,15 @@ module BARewards
     response["out"].map do |entry|
       Date.parse(entry["d"]) if entry["bs"].to_i >= number_of_seats
     end.compact
+  end
+
+  def self.cabin_class_to_sc_mapping(cabin_class)
+    {
+      economy: "X",
+      premium: "P",
+      business: "U",
+      first: "Z"
+    }[cabin_class]
   end
 end
 
