@@ -4,7 +4,7 @@ module BARewards
                 :availability_dates, :raw_response, :avios_price
 
     def reward_flight_saver?
-      @reward_flight_saver > 0
+      @reward_flight_saver && @reward_flight_saver > 0
     end
 
     def initialize(args)
