@@ -15,7 +15,7 @@ module BARewards
 
     response = get(
       "/departure/cities/#{from}/destination/#{to}?obDate=" \
-      "#{Date.today.strftime('%d%m%y')}&cabinClass=#{klass}&sc=#{sc}"
+      "#{Date.today.strftime('%d%m%Y')}&cabinClass=#{klass}&sc=#{sc}"
     )
 
     if response.code == 200
